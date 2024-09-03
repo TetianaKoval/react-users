@@ -1,11 +1,9 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect } from "react";
 import initialUsers from "../data/Users.json";
 
-console.log(initialUsers);
+export const UsersContext = createContext();
 
-export const UserContext = createContext();
-
-export const UserProvider = ({children}) => {
+export const UsersProvider = ({children}) => {
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -19,8 +17,8 @@ export const UserProvider = ({children}) => {
   }, [users]);
 
   return (
-    <UserContext.Provider value={{users, setUsers}}>
+    <UsersContext.Provider value={{users, setUsers}}>
       {children}
-    </UserContext.Provider>
+    </UsersContext.Provider>
   );
 }

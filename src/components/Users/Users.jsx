@@ -1,17 +1,28 @@
 import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
-import { UserContext } from "./../../context/UserContext";
+import { UsersContext } from "./../../context/UsersContext";
+import { DataUsersContext } from "./../../context/DataUsersContext";
 import { DeleteIcon } from './../DeleteIcon';
 import "./Users.scss";
 
 
 export const Users = () => {
-  const { users } = useContext(UserContext);
+  const { users } = useContext(UsersContext);
+
+  const { departments } = useContext(DataUsersContext);
   return (
     <div className="users">
       <h1 className="users__title title">Users</h1>
+      <div className="users__filter">
+        {departments.map(department => {
+          return(
+            <React.Fragment key={department.name}>
+              {department.name}
+            </React.Fragment >
+          )
+        })}
+      </div>
       <div className="users__table table">
-
         <div className="table__header">Full Name</div>
         <div className="table__header">Department</div>
         <div className="table__header">Country</div>
