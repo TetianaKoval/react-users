@@ -1,10 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Outlet } from "react-router-dom";
+import { UserContext } from "./../../context/UserContext"
+
 
 export const Users = () => {
+  const { users } = useContext(UserContext);
   return (
     <div>
-      Here will be users
+      {users.map((user) => {
+        return (
+          <div key={user.name}>{user.name}</div>
+        )
+      })}
       <Outlet />
     </div>
   )
