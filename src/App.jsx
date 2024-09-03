@@ -8,7 +8,9 @@ export function App() {
   return (
     <div className="App">
       <Header />
-      <Outlet />
+      <div className="content-body">
+        <Outlet />
+      </div>
     </div>
   );
 }

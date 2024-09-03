@@ -10,7 +10,6 @@ export const UserProvider = ({children}) => {
 
   useEffect(() => {
     const savedUsers = JSON.parse(localStorage.getItem('users') || JSON.stringify(initialUsers));
-    // const savedUsers = initialUsers;
 
     setUsers(savedUsers);
   }, []);

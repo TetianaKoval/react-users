@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Karla:ital,wght@0,200..800;1,200..800&display=swap');
 
 body {
   font-family: 'Rubik', sans-serif;
@@ -45,5 +46,82 @@ img{vertical-align: top;}
 h1,h2,h3,h4,h5,h6{
   font-size: inherit;
   font-weight: 400;
+}
+
+.content-body {
+  max-width: 1240px;
+  width: 100%;
+  padding: 60px 80px 80px;
+  border: 1px solid #000;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.title {
+  font-family: 'Karla', sans-serif;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: 6px;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+
+.table {
+  display: grid;
+  
+  gap: 20px;
+
+  &__header {
+    font-family: 'Karla', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 20px;
+    letter-spacing: 0.4px;
+
+    &:first-child {
+      padding-left: 36px;
+    }
+
+    &:last-child {
+      padding-right: 36px;
+    }
+  }
+
+  &__cell {
+    font-family: 'Rubik', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+
+
+    &--name {
+      font-weight: 500;
+    }
+  }
+
+  &__cell--start {
+    padding-left: 36px;
+  }
+
+  &__cell--end {
+    padding-right: 36px;
+  }
+
+  &__cell, &__header {
+    padding-top: 28px;
+    padding-bottom: 28px;
+    text-align: left;
+  }
+
+  &__divider {
+    grid-column: span 5;
+    height: 1px;
+    background-color: #E3E8EE;
+    margin: 0;
+  }
 }
 

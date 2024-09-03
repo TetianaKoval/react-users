@@ -1,0 +1,7 @@
+.users {
+  &__table {
+    grid-template-columns: 200px auto 200px 100px 60px;
+    border: 1px solid #E3E8EE;
+    overflow: scroll;
+  }
+}
