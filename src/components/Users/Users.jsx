@@ -9,6 +9,7 @@ import "./Users.scss";
 export const Users = () => {
   const { users } = useContext(UsersContext);
   const [ filteredUsers, setFilteredUsers] = useState([]);
+  const [ threeDepartmentsSelected, setThreeDepartmentsSelected] = useState(false);
 
   const handleFilterChange = (selectedDepartments) => {
     if (selectedDepartments.length === 0) {
@@ -16,16 +17,27 @@ export const Users = () => {
     } else {
       setFilteredUsers(users.filter((user) => {
         return selectedDepartments.includes(user.department.value);
-      }))
-    }
+      }));
 
-    console.log(filteredUsers);
+      if(selectedDepartments.length >= 3) {
+        setThreeDepartmentsSelected(true);
+      } else {
+        setThreeDepartmentsSelected(false);
+      }
+    }
   }
 
   return (
     <div className="users">
       <h1 className="users__title title">Users</h1>
-      <div className="filters-container">
+
+      {!threeDepartmentsSelected && (
+        <p className="users__help-message">
+          Please add at least 3 departmetns to be able to proceed next steps
+        </p>
+      )}
+
+      <div className="users__filters-container">
         <Filter onFilterChange={handleFilterChange} />
       </div>
 

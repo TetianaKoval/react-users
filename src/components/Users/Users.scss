@@ -4,4 +4,16 @@
     border: 1px solid #E3E8EE;
     overflow-y: auto;
   }
+
+  &__filters-container {
+    width: 100%;
+    height: 48px;
+    margin-bottom: 40px;
+    display: flex;
+  }
+
+  &__help-message {
+    text-align: left;
+    margin-bottom: 12px;
+  }
 }

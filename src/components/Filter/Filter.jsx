@@ -28,7 +28,7 @@ export const Filter = ({ onFilterChange }) => {
 
   const handleMouseLeave = () => {
     setIsDropdownOpen(false);
-  }
+  };
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -47,8 +47,9 @@ export const Filter = ({ onFilterChange }) => {
     render() {
       return (
         <Scrollbars
-          style={{ width: 210, height: 200 }}
-          renderThumbVertical={props => <div {...props} className="thumb-vertical"/>}
+          renderThumbVertical={(props) => (
+            <div {...props} className="thumb-vertical" />
+          )}
         >
           {this.props.children}
         </Scrollbars>
@@ -57,52 +58,56 @@ export const Filter = ({ onFilterChange }) => {
   }
 
   return (
-    <div
-      className={cn("filter", {
-        active: isDropdownOpen,
-      })}
-      onMouseLeave={handleMouseLeave}
-    >
+    <>
       <div
-        onClick={toggleDropdown}
-        className={cn("filter__status", {
+        className={cn("filter", {
           active: isDropdownOpen,
         })}
+        onMouseLeave={handleMouseLeave}
       >
-        Selected(
-        {selectedDepartments.length})
-      </div>
+        <div
+          onClick={toggleDropdown}
+          className={cn("filter__status", {
+            active: isDropdownOpen,
+          })}
+        >
+          Selected(
+          {selectedDepartments.length})
+        </div>
 
-      {isDropdownOpen && (
-        <CustomScrollbars>
+        {isDropdownOpen && (
           <div
             className={cn("filter__list", {
               active: isDropdownOpen,
             })}
           >
-            {sortedDepartments.map((department) => {
-              return (
-                <div
-                  key={department.value}
-                  className={cn("filter__item department", {
-                    'filter__item--checked': selectedDepartments.includes(department.value),
-                  })}
-                >
-                  <label>
-                    <input
-                      type="checkbox"
-                      value={department.value}
-                      onChange={handleCheckboxChange}
-                      checked={selectedDepartments.includes(department.value)}
-                    />
-                    {department.name}
-                  </label>
-                </div>
-              );
-            })}
+            <CustomScrollbars style={{ width: 220, height: 200 }}>
+              {sortedDepartments.map((department) => {
+                return (
+                  <div
+                    key={department.value}
+                    className={cn("filter__item department", {
+                      "filter__item--checked": selectedDepartments.includes(
+                        department.value
+                      ),
+                    })}
+                  >
+                    <label>
+                      <input
+                        type="checkbox"
+                        value={department.value}
+                        onChange={handleCheckboxChange}
+                        checked={selectedDepartments.includes(department.value)}
+                      />
+                      {department.name}
+                    </label>
+                  </div>
+                );
+              })}
+            </CustomScrollbars>
           </div>
-        </CustomScrollbars>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
