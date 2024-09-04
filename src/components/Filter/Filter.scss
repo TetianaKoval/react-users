@@ -2,6 +2,10 @@
   width: 220px;
   border: 1px solid #E3E8EE;
   transition: all 0.3s ease-in-out;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #fff;
 
   &.active {
     border: 1px solid #000;
@@ -41,6 +45,7 @@
   &__list {
     display: none;
     flex-direction: column;
+    height: 200px;
   }
 
   &__list.active {
@@ -54,6 +59,46 @@
     line-height: 20px;
     letter-spacing: 0.2px;
     text-align: left;
-    padding: 10px 25px;
+    padding: 10px 10px 10px 25px;
+    
+    cursor: pointer;
+
+    & label {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    & label::before {
+      content: "";
+      display: block;
+      width: 24px;
+      height: 24px;
+      background-color: #fff;
+      border: 1px solid #000;
+      flex: 0 0 auto;
+    }
+
+    &--checked label::before {
+      background-color: #000;
+      background-image: url('./../../img/check.png');
+      background-size: 13px 9px;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
   }
+
+
+
+  // &__scroll-bars {
+  //   width: 220px;
+  //   height: 200px;
+  // }
+}
+
+.thumb-vertical {
+  background-color: #000000;
+  border-radius: 8px;
+  width: 4px !important;
 }

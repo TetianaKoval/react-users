@@ -25,8 +25,10 @@ export const Users = () => {
   return (
     <div className="users">
       <h1 className="users__title title">Users</h1>
-      <Filter onFilterChange={handleFilterChange} />
-      
+      <div className="filters-container">
+        <Filter onFilterChange={handleFilterChange} />
+      </div>
+
       <div className="users__table table">
         <div className="table__header">Full Name</div>
         <div className="table__header">Department</div>
