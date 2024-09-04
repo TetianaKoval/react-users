@@ -71,8 +71,7 @@ h1,h2,h3,h4,h5,h6{
 
 .table {
   display: grid;
-  
-  gap: 20px;
+  column-gap: 20px;
 
   &__header {
     font-family: 'Karla', sans-serif;

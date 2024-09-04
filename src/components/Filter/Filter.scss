@@ -1,0 +1,59 @@
+.filter {
+  width: 220px;
+  border: 1px solid #E3E8EE;
+  transition: all 0.3s ease-in-out;
+
+  &.active {
+    border: 1px solid #000;
+  }
+
+  &__status {
+    cursor: pointer;
+    height: 48px;
+    padding: 14px 24px;
+    font-family: 'Rubik';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    position: relative;
+
+    &::before {
+      content: '';
+      display: block;
+      width: 11px;
+      height: 6px;
+      background-image: url('../../img/arrow.png');
+      position: absolute;
+      right: 24px;
+      top: 20px;
+      transform: rotate(0deg);
+      transition: all 0.3s ease-in-out;
+    }
+ 
+    &.active::before {
+      transform: rotate(180deg);
+    } 
+
+  }
+
+  &__list {
+    display: none;
+    flex-direction: column;
+  }
+
+  &__list.active {
+    display: flex;
+    align-items: flex-start;
+  }
+
+  &__item {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+    letter-spacing: 0.2px;
+    text-align: left;
+    padding: 10px 25px;
+  }
+}

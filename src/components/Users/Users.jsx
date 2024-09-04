@@ -1,27 +1,32 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Outlet } from "react-router-dom";
 import { UsersContext } from "./../../context/UsersContext";
-import { DataUsersContext } from "./../../context/DataUsersContext";
+
+import { Filter } from "./../Filter";
 import { DeleteIcon } from './../DeleteIcon';
 import "./Users.scss";
 
-
 export const Users = () => {
   const { users } = useContext(UsersContext);
+  const [ filteredUsers, setFilteredUsers] = useState([]);
 
-  const { departments } = useContext(DataUsersContext);
+  const handleFilterChange = (selectedDepartments) => {
+    if (selectedDepartments.length === 0) {
+      setFilteredUsers([]);
+    } else {
+      setFilteredUsers(users.filter((user) => {
+        return selectedDepartments.includes(user.department.value);
+      }))
+    }
+
+    console.log(filteredUsers);
+  }
+
   return (
     <div className="users">
       <h1 className="users__title title">Users</h1>
-      <div className="users__filter">
-        {departments.map(department => {
-          return(
-            <React.Fragment key={department.name}>
-              {department.name}
-            </React.Fragment >
-          )
-        })}
-      </div>
+      <Filter onFilterChange={handleFilterChange} />
+      
       <div className="users__table table">
         <div className="table__header">Full Name</div>
         <div className="table__header">Department</div>
@@ -31,7 +36,7 @@ export const Users = () => {
 
         <div className="table__divider"></div>
 
-        {users.map(({ name, status, department, country }) => {
+        {filteredUsers.map(({ name, status, department, country }) => {
           return (
             <React.Fragment key={name}>
               <div className="table__cell table__cell--name table__cell--start">{name}</div>
