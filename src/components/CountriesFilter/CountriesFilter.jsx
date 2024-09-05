@@ -1,11 +1,15 @@
 import React, { useState, Component, useContext } from "react";
+import { DataUsersContext } from "./../../context/DataUsersContext"
 import cn from "classnames";
 import { Scrollbars } from "react-custom-scrollbars-2";
-import { DataUsersContext } from "./../../context/DataUsersContext"
 
-export const DepartmentsFilter = ({ values }) => {
-  const { departments} = useContext(DataUsersContext);
-  const { selectedDepartments, handleDepartmentChange } = values;
+export const CountriesFilter = ({ values }) => {
+  const { countries } = useContext(DataUsersContext);
+  const {
+    selectedCountries,
+    handleCountriesChange,
+    canOtherFiltering,
+  } = values;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const toggleDropdown = () => {
@@ -16,12 +20,12 @@ export const DepartmentsFilter = ({ values }) => {
     setIsDropdownOpen(false);
   };
 
-  const sortedDepartments = [
-    ...departments.filter((department) =>
-      selectedDepartments.includes(department.value)
+  const sortedCountries = [
+    ...countries.filter((country) =>
+      selectedCountries.includes(country.value)
     ),
-    ...departments.filter(
-      (department) => !selectedDepartments.includes(department.value)
+    ...countries.filter(
+      (country) => !selectedCountries.includes(country.value)
     ),
   ];
 
@@ -43,6 +47,7 @@ export const DepartmentsFilter = ({ values }) => {
     <div
         className={cn("filter", {
           active: isDropdownOpen,
+          disable: !canOtherFiltering,
         })}
         onMouseLeave={handleMouseLeave}
       >
@@ -52,9 +57,7 @@ export const DepartmentsFilter = ({ values }) => {
             active: isDropdownOpen,
           })}
         >
-          Selected
-          (
-          {selectedDepartments.length})
+          Selected country
         </div>
 
         {isDropdownOpen && (
@@ -64,14 +67,14 @@ export const DepartmentsFilter = ({ values }) => {
             })}
           >
             <CustomScrollbars style={{ width: 220, height: 200 }}>
-              {sortedDepartments && sortedDepartments.map((department) => {
+              {sortedCountries && sortedCountries.map((country) => {
                 return (
                   <div
-                    key={department.value}
+                    key={country.value}
                     className={cn("filter__item department",
                       {
-                        "filter__item--checked": selectedDepartments.includes(
-                          department.value
+                        "filter__item--checked": selectedCountries.includes(
+                          country.value
                         ),
                       }
                     )}
@@ -79,11 +82,11 @@ export const DepartmentsFilter = ({ values }) => {
                     <label>
                       <input
                         type="checkbox"
-                        value={department.value}
-                        onChange={handleDepartmentChange}
-                        checked={selectedDepartments.includes(department.value)}
+                        value={country.value}
+                        onChange={handleCountriesChange}
+                        checked={selectedCountries.includes(country.value)}
                       />
-                      {department.name}
+                      {country.name}
                     </label>
                   </div>
                 );

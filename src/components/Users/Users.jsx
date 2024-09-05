@@ -1,44 +1,32 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
-import { UsersContext } from "./../../context/UsersContext";
+// import { UsersContext } from "./../../context/UsersContext";
 
 import { Filter } from "./../Filter";
 import { DeleteIcon } from './../DeleteIcon';
 import "./Users.scss";
 
 export const Users = () => {
-  const { users } = useContext(UsersContext);
+  // const { users } = useContext(UsersContext);
   const [ filteredUsers, setFilteredUsers] = useState([]);
-  const [ threeDepartmentsSelected, setThreeDepartmentsSelected] = useState(false);
+  const [showHelpMessage, setShowHelpMessage] = useState(false);
 
-  const handleFilterChange = (selectedDepartments) => {
-    if (selectedDepartments.length === 0) {
-      setFilteredUsers([]);
-    } else {
-      setFilteredUsers(users.filter((user) => {
-        return selectedDepartments.includes(user.department.value);
-      }));
-
-      if(selectedDepartments.length >= 3) {
-        setThreeDepartmentsSelected(true);
-      } else {
-        setThreeDepartmentsSelected(false);
-      }
-    }
-  }
+  const handleFilterChange = (filteredUsersList) => {
+    setFilteredUsers(filteredUsersList);
+  };
 
   return (
     <div className="users">
       <h1 className="users__title title">Users</h1>
 
-      {!threeDepartmentsSelected && (
+      {!showHelpMessage && (
         <p className="users__help-message">
           Please add at least 3 departmetns to be able to proceed next steps
         </p>
       )}
 
       <div className="users__filters-container">
-        <Filter onFilterChange={handleFilterChange} />
+        <Filter onFilterChange={handleFilterChange} onDepartmentCountThree={setShowHelpMessage} />
       </div>
 
       <div className="users__table table">
