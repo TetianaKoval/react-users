@@ -3,11 +3,11 @@ import { DataUsersContext } from "./../../context/DataUsersContext"
 import cn from "classnames";
 import { Scrollbars } from "react-custom-scrollbars-2";
 
-export const CountriesFilter = ({ values }) => {
-  const { countries } = useContext(DataUsersContext);
+export const StatusesFilter = ({ values }) => {
+  const { statuses } = useContext(DataUsersContext);
   const {
-    selectedCountries,
-    handleCountriesChange,
+    selectedStatuses,
+    handleStatusesChange,
     canOtherFiltering,
   } = values;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -21,11 +21,11 @@ export const CountriesFilter = ({ values }) => {
   };
 
   const sortedCountries = [
-    ...countries.filter((country) =>
-      selectedCountries.includes(country.value)
+    ...statuses.filter((status) =>
+      selectedStatuses.includes(status.value)
     ),
-    ...countries.filter(
-      (country) => !selectedCountries.includes(country.value)
+    ...statuses.filter(
+      (status) => !selectedStatuses.includes(status.value)
     ),
   ];
 
@@ -57,7 +57,7 @@ export const CountriesFilter = ({ values }) => {
             active: isDropdownOpen,
           })}
         >
-          Select country
+          Select status
         </div>
 
         {isDropdownOpen && (
@@ -67,14 +67,14 @@ export const CountriesFilter = ({ values }) => {
             })}
           >
             <CustomScrollbars style={{ width: 220, height: 200 }}>
-              {sortedCountries && sortedCountries.map((country) => {
+              {sortedCountries && sortedCountries.map((status) => {
                 return (
                   <div
-                    key={country.value}
+                    key={status.value}
                     className={cn("filter__item department",
                       {
-                        "filter__item--checked": selectedCountries.includes(
-                          country.value
+                        "filter__item--checked": selectedStatuses.includes(
+                          status.value
                         ),
                       }
                     )}
@@ -82,11 +82,11 @@ export const CountriesFilter = ({ values }) => {
                     <label>
                       <input
                         type="checkbox"
-                        value={country.value}
-                        onChange={handleCountriesChange}
-                        checked={selectedCountries.includes(country.value)}
+                        value={status.value}
+                        onChange={handleStatusesChange}
+                        checked={selectedStatuses.includes(status.value)}
                       />
-                      {country.name}
+                      {status.name}
                     </label>
                   </div>
                 );

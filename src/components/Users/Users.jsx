@@ -11,6 +11,8 @@ export const Users = () => {
   const [ filteredUsers, setFilteredUsers] = useState([]);
   const [showHelpMessage, setShowHelpMessage] = useState(false);
 
+  // console.log(filteredUsers);
+
   const handleFilterChange = (filteredUsersList) => {
     setFilteredUsers(filteredUsersList);
   };

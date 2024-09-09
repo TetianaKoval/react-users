@@ -1,15 +1,16 @@
 import React, { useContext, useState } from "react";
 import "./Filter.scss";
-import { DataUsersContext } from "./../../context/DataUsersContext";
 import { UsersContext } from "./../../context/UsersContext";
 import { DepartmentsFilter } from "./../DepartmentsFilter";
 import { CountriesFilter } from "./../CountriesFilter";
+import { StatusesFilter } from "./../StatusesFilter";
 
 export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
   const { users } = useContext(UsersContext);
 
   const [selectedDepartments, setSelectedDepartments] = useState([]);
   const [selectedCountries, setSelectedCountries] = useState([]);
+  const [selectedStatuses, setSelectedStatuses] = useState([]);
   const [canOtherFiltering, setCanOtherFiltering] = useState(false);
 
   const handleDepartmentChange = (event) => {
@@ -31,10 +32,11 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
       onDepartmentCountThree(false);
       setCanOtherFiltering(false);
       setSelectedCountries([]);
+      setSelectedStatuses([]);
     }
 
     setSelectedDepartments(updatedDepartments);
-    applyFilter(updatedDepartments, selectedCountries);
+    applyFilter(updatedDepartments, selectedCountries, selectedStatuses);
   };
 
   const handleCountriesChange = (event) => {
@@ -50,10 +52,26 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
     }
 
     setSelectedCountries(updatedCountries);
-    applyFilter(selectedDepartments, updatedCountries);
+    applyFilter(selectedDepartments, updatedCountries, selectedStatuses);
   };
 
-  const applyFilter = (departments, countries) => {
+  const handleStatusesChange = (event) => {
+    const { value, checked } = event.target;
+    let updatedStatuses;
+
+    if (checked) {
+      updatedStatuses = [value, ...selectedStatuses];
+    } else {
+      updatedStatuses = selectedStatuses.filter(
+        (status) => status !== value
+      );
+    }
+
+    setSelectedStatuses(updatedStatuses);
+    applyFilter(selectedDepartments, selectedCountries, updatedStatuses);
+  };
+
+  const applyFilter = (departments, countries, statuses) => {
     let filteredUsers = users;
 
     if (departments.length > 0) {
@@ -62,6 +80,10 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
 
     if (departments.length >= 3 && countries.length > 0) {
       filteredUsers = filteredUsers.filter(user => countries.includes(user.country.value));
+    }
+
+    if (departments.length >= 3 && statuses.length > 0) {
+      filteredUsers = filteredUsers.filter(user => statuses.includes(user.status.value));
     }
 
     onFilterChange(filteredUsers);
@@ -78,6 +100,12 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
           handleCountriesChange,
           canOtherFiltering,
         }}/>
+        <StatusesFilter values={{
+          selectedStatuses,
+          handleStatusesChange,
+          canOtherFiltering,
+        }} />
+        {/* <div className="filter__clear-filters"></div> */}
     </>
   );
 };

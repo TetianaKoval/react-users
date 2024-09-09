@@ -13,6 +13,7 @@ export const UsersProvider = ({children}) => {
   }, []);
 
   useEffect(() => {
+    
     localStorage.setItem('users', JSON.stringify(users));
   }, [users]);
 
