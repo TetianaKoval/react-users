@@ -100,6 +100,19 @@
 
   &__clear-filters {
     display: block;
+    width: 48px;
+    height: 48px;
+    border: 1px solid #C4C4C4;
+    background-image: url("./../../img/delete.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+
+    &:hover {
+      background-color: #C4C4C4;
+    }
   }
 
 }

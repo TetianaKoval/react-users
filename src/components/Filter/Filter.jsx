@@ -89,6 +89,15 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
     onFilterChange(filteredUsers);
   }
 
+  const handleDeleteFilter = () => {
+    applyFilter([], [], [])
+    setSelectedDepartments([]);
+    onDepartmentCountThree(false);
+    setCanOtherFiltering(false);
+    setSelectedCountries([]);
+    setSelectedStatuses([]);
+  }
+
   return (
     <>
       <DepartmentsFilter values={{
@@ -105,7 +114,10 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
           handleStatusesChange,
           canOtherFiltering,
         }} />
-        {/* <div className="filter__clear-filters"></div> */}
+        <div
+          className="filter__clear-filters"
+          onClick={handleDeleteFilter}
+        ></div>
     </>
   );
 };
