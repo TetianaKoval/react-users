@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { AddUserForm } from "../AddUserForm/AddUserForm";
 // import { UsersContext } from "./../../context/UsersContext";
 
 import { Filter } from "./../Filter";
@@ -10,12 +11,15 @@ export const Users = () => {
   // const { users } = useContext(UsersContext);
   const [ filteredUsers, setFilteredUsers] = useState([]);
   const [showHelpMessage, setShowHelpMessage] = useState(false);
-
-  // console.log(filteredUsers);
+  const [showAddUserForm, setShowAddUserForm] = useState(false);
 
   const handleFilterChange = (filteredUsersList) => {
     setFilteredUsers(filteredUsersList);
   };
+
+  const hendlerClickOnAddUserBtn = () => {
+    setShowAddUserForm(!showAddUserForm);
+  }
 
   return (
     <div className="users">
@@ -29,6 +33,14 @@ export const Users = () => {
 
       <div className="users__filters-container">
         <Filter onFilterChange={handleFilterChange} onDepartmentCountThree={setShowHelpMessage} />
+        <div className="users__add-user-container">
+          <div
+            className="users__add-user-btn"
+            onClick={hendlerClickOnAddUserBtn}
+          >
+            Add User
+          </div>
+        </div>
       </div>
 
       <div className="users__table table">
@@ -52,7 +64,11 @@ export const Users = () => {
           )
         })}
       </div>
-      
+
+      {showAddUserForm && (
+        <AddUserForm setShowAddUserForm={setShowAddUserForm}/>
+      )}
+
       <Outlet />
     </div>
   )

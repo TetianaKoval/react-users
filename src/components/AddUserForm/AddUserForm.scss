@@ -1,0 +1,18 @@
+.add-user-form {
+  width: 720px;
+  height: 444px;
+  background-color: #fff;
+  border: 1px solid #000;
+}
+
+.container-bg {
+  position: fixed;
+  top: 90px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 90px);
+  background-color: #7D7D7D80;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

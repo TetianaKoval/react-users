@@ -96,6 +96,7 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
     setCanOtherFiltering(false);
     setSelectedCountries([]);
     setSelectedStatuses([]);
+    onFilterChange([])
   }
 
   return (
