@@ -1,10 +1,10 @@
 import React, { useState, Component, useContext } from "react";
 import cn from "classnames";
 import { Scrollbars } from "react-custom-scrollbars-2";
-import { DataUsersContext } from "./../../context/DataUsersContext"
+import { DataUsersContext } from "./../../context/DataUsersContext";
 
 export const DepartmentsFilter = ({ values }) => {
-  const { departments} = useContext(DataUsersContext);
+  const { departments } = useContext(DataUsersContext);
   const { selectedDepartments, handleDepartmentChange } = values;
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -41,40 +41,37 @@ export const DepartmentsFilter = ({ values }) => {
 
   return (
     <div
-        className={cn("filter", {
+      className={cn("filter", {
+        active: isDropdownOpen,
+      })}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div
+        onClick={toggleDropdown}
+        className={cn("filter__status", {
           active: isDropdownOpen,
         })}
-        onMouseLeave={handleMouseLeave}
       >
+        Selected ({selectedDepartments.length})
+      </div>
+
+      {isDropdownOpen && (
         <div
-          onClick={toggleDropdown}
-          className={cn("filter__status", {
+          className={cn("filter__list", {
             active: isDropdownOpen,
           })}
         >
-          Selected
-          (
-          {selectedDepartments.length})
-        </div>
-
-        {isDropdownOpen && (
-          <div
-            className={cn("filter__list", {
-              active: isDropdownOpen,
-            })}
-          >
-            <CustomScrollbars style={{ width: 220, height: 200 }}>
-              {sortedDepartments && sortedDepartments.map((department) => {
+          <CustomScrollbars style={{ width: 220, height: 200 }}>
+            {sortedDepartments &&
+              sortedDepartments.map((department) => {
                 return (
                   <div
                     key={department.value}
-                    className={cn("filter__item department",
-                      {
-                        "filter__item--checked": selectedDepartments.includes(
-                          department.value
-                        ),
-                      }
-                    )}
+                    className={cn("filter__item department", {
+                      "filter__item--checked": selectedDepartments.includes(
+                        department.value
+                      ),
+                    })}
                   >
                     <label>
                       <input
@@ -88,9 +85,9 @@ export const DepartmentsFilter = ({ values }) => {
                   </div>
                 );
               })}
-            </CustomScrollbars>
-          </div>
-        )}
-      </div>
-  )
-}
+          </CustomScrollbars>
+        </div>
+      )}
+    </div>
+  );
+};

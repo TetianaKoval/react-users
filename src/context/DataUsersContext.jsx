@@ -1,7 +1,8 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, Component } from "react";
 import Departments from "../data/Departments.json";
 import Countries from "../data/Countries.json";
 import Statuses from "../data/Statuses.json";
+import { Scrollbars } from "react-custom-scrollbars-2";
 
 export const DataUsersContext = createContext();
 
@@ -18,9 +19,23 @@ export const DataUsersProvider = ({children}) => {
     setStatuses(JSON.parse(localStorage.getItem('statuses') || JSON.stringify(Statuses)));
   }, []);
 
+  class CustomScrollbars extends Component {
+    render() {
+      return (
+        <Scrollbars
+          renderThumbVertical={(props) => (
+            <div {...props} className="thumb-vertical" />
+          )}
+        >
+          {this.props.children}
+        </Scrollbars>
+      );
+    }
+  }
+
   return (
     <DataUsersContext.Provider
-      value={{departments, countries, statuses}}
+      value={{departments, countries, statuses, CustomScrollbars}}
     >
       {children}
     </DataUsersContext.Provider>
