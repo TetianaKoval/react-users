@@ -23,6 +23,7 @@
     display: flex;
     gap: 20px;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   &__input {
@@ -37,6 +38,7 @@
     letter-spacing: 0.2px;
     text-align: left;
     color: #5E626B;
+    position: relative;
 
     & label {
       margin-bottom: 4px;
@@ -91,6 +93,10 @@
     border-right: 1px solid #000;
     background-color: #fff;
     height: 100px;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    z-index: 4;
   }
 
   &__input-item {
