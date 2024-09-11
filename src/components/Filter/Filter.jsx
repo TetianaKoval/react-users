@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState, useCallback } from "react";
 import "./Filter.scss";
 import { UsersContext } from "./../../context/UsersContext";
 import { DepartmentsFilter } from "./../DepartmentsFilter";
@@ -71,7 +71,7 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
     applyFilter(selectedDepartments, selectedCountries, updatedStatuses);
   };
 
-  const applyFilter = (departments, countries, statuses) => {
+  const applyFilter = useCallback((departments, countries, statuses) => {
     let filteredUsers = users;
 
     if (departments.length > 0) {
@@ -87,7 +87,7 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
     }
 
     onFilterChange(filteredUsers);
-  }
+  }, [users, onFilterChange]);
 
   const handleDeleteFilter = () => {
     applyFilter([], [], [])
@@ -98,6 +98,11 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
     setSelectedStatuses([]);
     onFilterChange([])
   }
+
+  useEffect(() => {
+    applyFilter(selectedDepartments, selectedCountries, selectedStatuses);
+    console.log('call');
+  }, [users])
 
   return (
     <>
