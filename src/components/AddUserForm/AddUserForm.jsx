@@ -3,14 +3,15 @@ import "./AddUserForm.scss";
 import { DataUsersContext } from "./../../context/DataUsersContext";
 import cn from "classnames";
 
-export const AddUserForm = ({ setShowAddUserForm }) => {
+export const AddUserForm = ({ setShowAddUserForm, addUser }) => {
   const { departments, countries, statuses, CustomScrollbars } = useContext(DataUsersContext);
   const formRef = useRef(null);
   const [name, setName] = useState("");
-  const [department, setDepartment] = useState(["Select department", false]);
-  const [country, setCountry] = useState(["Select country", false]);
-  const [status, setStatus] = useState(["Select status", false]);
+  const [department, setDepartment] = useState(["Select department", false, null]);
+  const [country, setCountry] = useState(["Select country", false, null]);
+  const [status, setStatus] = useState(["Select status", false, null]);
   const [listOpen, setListOpen] = useState([false, false, false]);
+  const [enoughInfo, setEnoughInfo] = useState(false);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -34,19 +35,28 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
     };
   }, [setShowAddUserForm]);
 
-  const hendleSelectItem = (category, selectedItem) => {
+  useEffect(() => {
+    if(name.length && department[1] && country[1] && status[1]) {
+      setEnoughInfo(true);
+    } else {
+      setEnoughInfo(false);
+    }
+
+  }, [name, department, country, status])
+
+  const hendleSelectItem = (category, selectedItem, selectedValue) => {
 
     switch (category) {
       case 'departments':
-        setDepartment([selectedItem, true]);
+        setDepartment([selectedItem, true, selectedValue]);
         break;
 
       case 'countries':
-        setCountry([selectedItem, true]);
+        setCountry([selectedItem, true, selectedValue]);
         break;
 
       case 'statuses':
-        setStatus([selectedItem, true]);
+        setStatus([selectedItem, true, selectedValue]);
         break;
 
       default:
@@ -90,7 +100,7 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
                   setListOpen([!listOpen[0], listOpen[1], listOpen[2]]);
                 }}
               >
-                {department}
+                {department[0]}
                 <span className={cn({
                   'arrow-active': listOpen[0],
                 })}></span>
@@ -105,7 +115,7 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
                       <li
                         key={dep.value}
                         onClick={() => {
-                          hendleSelectItem('departments', dep.name)
+                          hendleSelectItem('departments', dep.name, dep.value)
                         }}
                         className="form__input-item"
                       >
@@ -132,7 +142,7 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
                   setListOpen([listOpen[0], !listOpen[1], listOpen[2]]);
                 }}
               >
-                {country}
+                {country[0]}
                 <span className={cn({
                   'arrow-active': listOpen[1],
                 })}></span>
@@ -147,7 +157,7 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
                       <li
                         key={coun.value}
                         onClick={() => {
-                          hendleSelectItem('countries', coun.name)
+                          hendleSelectItem('countries', coun.name, coun.value)
                         }}
                         className="form__input-item"
                       >
@@ -174,7 +184,7 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
                   setListOpen([listOpen[0], listOpen[1], !listOpen[2]]);
                 }}
               >
-                {status}
+                {status[0]}
                 <span className={cn({
                   'arrow-active': listOpen[2],
                 })}></span>
@@ -190,7 +200,7 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
                       <li
                         key={stat.value}
                         onClick={() => {
-                          hendleSelectItem('statuses', stat.name)
+                          hendleSelectItem('statuses', stat.name, stat.value)
                         }}
                         className="form__input-item"
                       >
@@ -201,6 +211,37 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
                 </ul>
               )}
             </div>
+          </div>
+
+          <div className="form__submit">
+            <div
+              className="btn btn--cancel"
+              onClick={() => setShowAddUserForm(false)}
+            >
+              Cancel
+            </div>
+            <div
+              className={cn('btn', {
+                'disable': !enoughInfo,
+              })}
+              onClick={() => {
+                addUser({
+                  name: name,
+                  status: {
+                    name: status[0],
+                    value: status[2],
+                  },
+                  department: {
+                    name: department[0],
+                    value: department[2]
+                  },
+                  country: {
+                    name: country[0],
+                    value: country[2]
+                  }
+                })
+              }}
+            >Add</div>
           </div>
         </form>
       </div>

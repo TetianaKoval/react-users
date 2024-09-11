@@ -128,3 +128,30 @@ input[type="checkbox"] {
   display: none;
 }
 
+.btn {
+  display: block;
+  height: 48px;
+  width: 150px;
+  border: 1px solid #C4C4C4;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  background-color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Rubik';
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 14px;
+  letter-spacing: 0.2px;
+  text-align: center;
+
+  &--cancel {
+    width: 100px;
+  }
+
+  &:hover {
+    background-color: #C4C4C4;
+  }
+}
+

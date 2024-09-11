@@ -1,15 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Outlet } from "react-router-dom";
 import { AddUserForm } from "../AddUserForm/AddUserForm";
-// import { UsersContext } from "./../../context/UsersContext";
+import { UsersContext } from "./../../context/UsersContext";
 
 import { Filter } from "./../Filter";
 import { DeleteIcon } from './../DeleteIcon';
 import "./Users.scss";
 
 export const Users = () => {
-  // const { users } = useContext(UsersContext);
-  const [ filteredUsers, setFilteredUsers] = useState([]);
+  const { users, setUsers } = useContext(UsersContext);
+  const [filteredUsers, setFilteredUsers] = useState([]);
   const [showHelpMessage, setShowHelpMessage] = useState(false);
   const [showAddUserForm, setShowAddUserForm] = useState(false);
 
@@ -20,6 +20,12 @@ export const Users = () => {
   const hendlerClickOnAddUserBtn = () => {
     setShowAddUserForm(!showAddUserForm);
   }
+
+  const addUser = (newUser) => {
+    const updatedUsers = [newUser, ...users];
+    setUsers(updatedUsers);
+    setShowAddUserForm(false);
+  };
 
   return (
     <div className="users">
@@ -66,7 +72,10 @@ export const Users = () => {
       </div>
 
       {showAddUserForm && (
-        <AddUserForm setShowAddUserForm={setShowAddUserForm}/>
+        <AddUserForm
+          setShowAddUserForm={setShowAddUserForm}
+          addUser={addUser}
+        />
       )}
 
       <Outlet />

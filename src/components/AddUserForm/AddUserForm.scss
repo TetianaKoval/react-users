@@ -24,6 +24,7 @@
     gap: 20px;
     justify-content: space-between;
     flex-wrap: wrap;
+    margin-bottom: 60px;
   }
 
   &__input {
@@ -45,7 +46,16 @@
     }
   }
 
+  &__input--input {
+    color: #5E626B;
+  }
+
   &__input input, &__input--input {
+
+    &::placeholder {
+      color: #5E626B;
+    }
+
     border: 1px solid #E3E8EE;
     height: 48px;
     width: inherit;
@@ -55,13 +65,14 @@
     line-height: 20px;
     letter-spacing: 0.2px;
     text-align: left;
-    color: #5E626B;
     display: flex;
     align-items: center;
     padding: 0 24px;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
+
+    
 
     &-active {
       border-top: 1px solid #000;
@@ -105,6 +116,13 @@
     align-items: center;
     padding-left: 24px;
     cursor: pointer;
+  }
+
+  &__submit {
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    gap: 20px;
   }
 }
 
