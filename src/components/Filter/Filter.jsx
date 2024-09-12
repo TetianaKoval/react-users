@@ -101,6 +101,7 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
 
   useEffect(() => {
     applyFilter(selectedDepartments, selectedCountries, selectedStatuses);
+    // eslint-disable-next-line
   }, [users])
 
   return (

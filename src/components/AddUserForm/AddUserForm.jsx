@@ -75,7 +75,7 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
 
         <form className="add-user-form__form form">
           <div className="form__inputs">
-            <div className="form__input">
+            <div className="form__input add-user-form__input">
               <label htmlFor="name">Full Name:</label>
               <input
                 type="text"
@@ -88,7 +88,7 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
             </div>
 
             <div
-              className="form__input"
+              className="form__input add-user-form__input"
               onMouseLeave={() => setListOpen([false, false, false])}
             >
               <label htmlFor="department">Department:</label>
@@ -130,7 +130,7 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
             </div>
 
             <div
-              className="form__input"
+              className="form__input add-user-form__input"
               onMouseLeave={() => setListOpen([false, false, false])}
             >
               <label htmlFor="department">Country:</label>
@@ -172,7 +172,7 @@ export const AddUserForm = ({ setShowAddUserForm }) => {
             </div>
 
             <div
-              className="form__input"
+              className="form__input add-user-form__input"
               onMouseLeave={() => setListOpen([false, false, false])}
             >
               <label htmlFor="department">Status:</label>
