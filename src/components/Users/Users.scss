@@ -48,3 +48,9 @@
     }
   }
 }
+
+.table {
+  &__cell-delete {
+    cursor: pointer;
+  }
+}

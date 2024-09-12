@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useCallback } from "react";
+import React, { useContext, useState, useCallback, useEffect } from "react";
 import "./Filter.scss";
 import { UsersContext } from "./../../context/UsersContext";
 import { DepartmentsFilter } from "./../DepartmentsFilter";
@@ -76,14 +76,14 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
 
     if (departments.length > 0) {
       filteredUsers = filteredUsers.filter(user => departments.includes(user.department.value));
-    }
 
-    if (departments.length >= 3 && countries.length > 0) {
-      filteredUsers = filteredUsers.filter(user => countries.includes(user.country.value));
-    }
-
-    if (departments.length >= 3 && statuses.length > 0) {
-      filteredUsers = filteredUsers.filter(user => statuses.includes(user.status.value));
+      if (departments.length >= 3 && countries.length > 0) {
+        filteredUsers = filteredUsers.filter(user => countries.includes(user.country.value));
+      }
+  
+      if (departments.length >= 3 && statuses.length > 0) {
+        filteredUsers = filteredUsers.filter(user => statuses.includes(user.status.value));
+      }
     }
 
     onFilterChange(filteredUsers);
@@ -101,7 +101,6 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
 
   useEffect(() => {
     applyFilter(selectedDepartments, selectedCountries, selectedStatuses);
-    console.log('call');
   }, [users])
 
   return (
@@ -109,21 +108,21 @@ export const Filter = ({ onFilterChange, onDepartmentCountThree }) => {
       <DepartmentsFilter values={{
         selectedDepartments,
         handleDepartmentChange,
-        }}/>
-        <CountriesFilter values={{
-          selectedCountries,
-          handleCountriesChange,
-          canOtherFiltering,
-        }}/>
-        <StatusesFilter values={{
-          selectedStatuses,
-          handleStatusesChange,
-          canOtherFiltering,
-        }} />
-        <div
-          className="filter__clear-filters"
-          onClick={handleDeleteFilter}
-        ></div>
+      }}/>
+      <CountriesFilter values={{
+        selectedCountries,
+        handleCountriesChange,
+        canOtherFiltering,
+      }}/>
+      <StatusesFilter values={{
+        selectedStatuses,
+        handleStatusesChange,
+        canOtherFiltering,
+      }} />
+      <div
+        className="filter__clear-filters"
+        onClick={handleDeleteFilter}
+      ></div>
     </>
   );
 };

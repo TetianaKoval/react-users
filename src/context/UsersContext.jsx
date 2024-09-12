@@ -13,12 +13,11 @@ export const UsersProvider = ({children}) => {
   }, []);
 
   useEffect(() => {
-    
     localStorage.setItem('users', JSON.stringify(users));
   }, [users]);
 
   return (
-    <UsersContext.Provider value={{users, setUsers}}>
+    <UsersContext.Provider value={{users, setUsers }}>
       {children}
     </UsersContext.Provider>
   );

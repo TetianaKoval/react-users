@@ -21,11 +21,9 @@ export const Users = () => {
     setShowAddUserForm(!showAddUserForm);
   }
 
-  const addUser = (newUser) => {
-    const updatedUsers = [newUser, ...users];
-    setUsers(updatedUsers);
-    setShowAddUserForm(false);
-  };
+  const hendleDeleteItem = (userName) => {
+    setUsers([...users].filter(user => user.name !== userName));
+  }
 
   return (
     <div className="users">
@@ -38,7 +36,7 @@ export const Users = () => {
       )}
 
       <div className="users__filters-container">
-        <Filter onFilterChange={handleFilterChange} onDepartmentCountThree={setShowHelpMessage} />
+        <Filter onFilterChange={(list) => handleFilterChange(list)} onDepartmentCountThree={setShowHelpMessage} />
         <div className="users__add-user-container">
           <div
             className="users__add-user-btn"
@@ -65,7 +63,12 @@ export const Users = () => {
               <div className="table__cell">{department.name}</div>
               <div className="table__cell">{country.name}</div>
               <div className="table__cell">{status.name}</div>
-              <div className="table__cell table__cell--end"><DeleteIcon /></div>
+              <div
+                className="table__cell table__cell--end table__cell-delete"
+                onClick={() => hendleDeleteItem(name)}
+              >
+                <DeleteIcon />
+              </div>
             </React.Fragment>
           )
         })}
@@ -74,7 +77,6 @@ export const Users = () => {
       {showAddUserForm && (
         <AddUserForm
           setShowAddUserForm={setShowAddUserForm}
-          addUser={addUser}
         />
       )}
 

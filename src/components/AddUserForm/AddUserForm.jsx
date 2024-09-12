@@ -1,10 +1,12 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import "./AddUserForm.scss";
 import { DataUsersContext } from "./../../context/DataUsersContext";
+import { UsersContext } from "./../../context/UsersContext";
 import cn from "classnames";
 
-export const AddUserForm = ({ setShowAddUserForm, addUser }) => {
+export const AddUserForm = ({ setShowAddUserForm }) => {
   const { departments, countries, statuses, CustomScrollbars } = useContext(DataUsersContext);
+  const { users, setUsers } = useContext(UsersContext);
   const formRef = useRef(null);
   const [name, setName] = useState("");
   const [department, setDepartment] = useState(["Select department", false, null]);
@@ -225,7 +227,7 @@ export const AddUserForm = ({ setShowAddUserForm, addUser }) => {
                 'disable': !enoughInfo,
               })}
               onClick={() => {
-                addUser({
+                setUsers([{
                   name: name,
                   status: {
                     name: status[0],
@@ -239,7 +241,8 @@ export const AddUserForm = ({ setShowAddUserForm, addUser }) => {
                     name: country[0],
                     value: country[2]
                   }
-                })
+                }, ...users])
+                setShowAddUserForm(false);
               }}
             >Add</div>
           </div>
